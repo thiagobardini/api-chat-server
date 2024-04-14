@@ -1,7 +1,8 @@
 // server.js
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+require('dotenv').config();
+console.log('Porta definida na variável de ambiente:', process.env.PORT)
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require("@google/generative-ai");
 
 // Opções de CORS para permitir requisições de origens específicas
@@ -15,6 +16,7 @@ app.use(cors(corsOptions))
 app.use(express.json());
 
 
+// const PORT = 8000;
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
