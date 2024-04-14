@@ -1,26 +1,34 @@
 // server.js
-const express = require("express");
-const cors = require("cors");
+import express, { json } from "express"
+import bodyParser from 'body-parser';
+import cors from "cors";
 require('dotenv').config();
-console.log('Porta definida na variável de ambiente:', process.env.PORT)
-const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require("@google/generative-ai");
+// console.log('Porta definida na variável de ambiente:', process.env.PORT)
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
-// Opções de CORS para permitir requisições de origens específicas
-const corsOptions = {
-  origin: ['http://localhost:517', 'https://www.tbardini.com/', "https://www.thiagobardini.com/", "https://tbardini-cra-ldc8sznrr-thiagobardinis-projects.vercel.app/"], // Substitua pelos domínios permitidos
-  optionsSuccessStatus: 200
-};
+
+
 
 const app = express();
-app.use(cors(corsOptions))
-app.use(express.json());
+app.use(cors())
+// app.use(
+//   cors({
+//     // origin: appConfig.corsConfig.origin,
+//     // methods: appConfig.corsConfig.methods,
+//     origin: ["*"],
+//     methods: ["GET", "POST"],
+//     allowedHeaders: ['Content-Type', 'application/json'],
+//   })
+// )
+// app.use(json());
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 // const PORT = 8000;
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+
 
 const initialHistory = [
   {
@@ -40,7 +48,7 @@ const initialHistory = [
 // Initialize the Google Generative AI with the API key from the environment variables
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-app.post("/gemini", async (req, res) => {
+app.post("/chat-with-gemini", async (req, res) => {
   const { message, history } = req.body;
 
   // Your AI model's configurations
@@ -72,4 +80,7 @@ app.post("/gemini", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
