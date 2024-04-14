@@ -1,5 +1,4 @@
 // server.js
-const PORT = 8000;
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -8,6 +7,11 @@ app.use(express.json());
 require("dotenv").config();
 
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require("@google/generative-ai");
+
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 const initialHistory = [
   {
