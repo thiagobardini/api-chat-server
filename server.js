@@ -4,15 +4,21 @@ const cors = require("cors");
 require("dotenv").config();
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require("@google/generative-ai");
 
+// Opções de CORS para permitir requisições de origens específicas
+const corsOptions = {
+  origin: ['http://localhost:517', 'https://www.tbardini.com/', "https://www.thiagobardini.com/", "https://tbardini-cra-ldc8sznrr-thiagobardinis-projects.vercel.app/"], // Substitua pelos domínios permitidos
+  optionsSuccessStatus: 200
+};
+
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions))
 app.use(express.json());
 
 
-const PORT = 8000;
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 const initialHistory = [
   {
@@ -30,7 +36,7 @@ const initialHistory = [
 ];
 
 // Initialize the Google Generative AI with the API key from the environment variables
-const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post("/gemini", async (req, res) => {
   const { message, history } = req.body;
