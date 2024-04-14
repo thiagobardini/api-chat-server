@@ -2,7 +2,8 @@
 import express, { json } from "express"
 import bodyParser from 'body-parser';
 import cors from "cors";
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 // console.log('Porta definida na variável de ambiente:', process.env.PORT)
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
