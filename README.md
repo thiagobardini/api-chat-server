@@ -142,4 +142,6 @@ This project is licensed under the [MIT License](LICENSE).
 ## Links
 
 - **Website**: [https://www.tbardini.com/](https://www.tbardini.com/)
+- **Frontend Configuration**: [Frontend Configuration](https://github.com/thiagobardini/tbardini/tree/main/src/Components/ChatBox)
+
 

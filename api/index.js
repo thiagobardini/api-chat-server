@@ -74,7 +74,7 @@ app.post("/chat-with-gemini", cors(corsOptions), async (req, res) => {
   const fullHistory = initialHistory.concat(history);
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
     const chat = await model.startChat({ generationConfig, safetySettings, history: fullHistory });
     const result = await chat.sendMessage(message);
     const response = await result.response;
