@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
-import { fetchTextData } from "../db.js";
+import { fetchTextData, chatInteraction } from "../db.js";
 
 dotenv.config();
 
@@ -78,9 +78,14 @@ app.post("/chat-with-gemini", cors(corsOptions), async (req, res) => {
     const chat = await model.startChat({ generationConfig, safetySettings, history: fullHistory });
     const result = await chat.sendMessage(message);
     const response = await result.response;
-    const text = await response.text();
-    console.log("Response from AI:", text);
-    res.send(text);
+    const aiResponse = await response.text();
+
+    console.log("Response from AI:", aiResponse);
+
+    // Chat Interaction
+    await chatInteraction(message, aiResponse);
+
+    res.send(aiResponse);
   } catch (error) {
     console.error("Error during chat:", error);
     res.status(500).json({ error: "Internal Server Error", details: error.message });

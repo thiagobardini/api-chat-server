@@ -20,4 +20,11 @@ async function fetchTextData() {
   return textEntry ? textEntry.text : null;
 }
 
-export { connectToDatabase, fetchTextData };
+async function chatInteraction(userMessage, aiResponse) {
+  const db = await connectToDatabase();
+  const collection = db.collection('chatMessages');
+  const timestamp = new Date();
+  await collection.insertOne({ userMessage, aiResponse, timestamp });
+}
+
+export { connectToDatabase, fetchTextData, chatInteraction };
