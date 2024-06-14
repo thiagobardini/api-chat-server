@@ -7,7 +7,12 @@ dotenv.config();
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: ['https://www.tbardini.com', 'https://www.thiagobardini.com'],
+  methods: 'GET,POST',
+  allowedHeaders: 'Content-Type,Authorization'
+}));
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
