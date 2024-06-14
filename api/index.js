@@ -9,13 +9,13 @@ dotenv.config();
 const app = express();
 
 // Allow requests from the following origins
-const allowedOrigins = ['https://www.tbardini.com', 'https://www.thiagobardini.com', /^http:\/\/localhost:\d+$/];
+const allowedOrigins = ["tbardini.vercel.app", "thiagobardini.com", "tbardini.com", "https://www.tbardini.com", "https://www.thiagobardini.com", /^http:\/\/localhost:\d+$/];
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.some(pattern => pattern instanceof RegExp ? pattern.test(origin) : pattern === origin)) {
+    if (!origin || allowedOrigins.some((pattern) => (pattern instanceof RegExp ? pattern.test(origin) : pattern === origin))) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
 };
