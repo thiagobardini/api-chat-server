@@ -120,8 +120,11 @@ To deploy the project to Heroku, use the following commands:
 ```bash
 git add .
 git commit -m "message"
-heroku login (if not logged in)
+# if not logged in
+heroku login 
 git push heroku main
+# if add new text to MongoDB run the restart command
+heroku restart -a chat-box-portfolio 
 heroku logs --tail -a chat-box-portfolio
 heroku open -a chat-box-portfolio
 ```
